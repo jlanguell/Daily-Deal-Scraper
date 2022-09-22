@@ -17,7 +17,7 @@ def formatRequest(params):
     encoded = urllib.parse.quote(encoded)
     absoluteURL = baseURL + encoded
     print(absoluteURL)
-    getProducts(absoluteURL)
+    return absoluteURL
 
 
 def getProducts(absoluteURL):
@@ -34,7 +34,7 @@ def getProducts(absoluteURL):
     sleep(randint(3, 5))
     soup = bs(driver.page_source, "html.parser")
     driver.quit()
-    parser(soup)
+    return soup
 
 
 def parser(soup):
@@ -67,7 +67,8 @@ def parser(soup):
             update_item = "Deal" + str(n)
             data[update_item]['Link'].append(link)
         n+=1
+    return data.values()
 
 
-    print(data)
-    print(len(items))
+    #print(data)
+    #print(len(items))

@@ -1,5 +1,8 @@
 import json
 from tkinter import *
+from tkinter import messagebox
+
+number = 0
 
 def gui():
     # GUI portion
@@ -20,10 +23,10 @@ def gui():
     checkmenwatch = IntVar()
     checkwomanwatch = IntVar()
 
-    #nested get data / save data (called by lambda when "save button" is pressed"
+    # nested get data / save data (called by lambda when "save button" is pressed"
     def getdata():
 
-        # set data for params  (temp)
+        # set data for params (temp)
         params = {
             "version": 1,
             "viewIndex": 0,
@@ -46,36 +49,56 @@ def gui():
         menwatches = "6358539011"
         womenwatches = "6358543011"
 
-        params["prime"] = primeship.get()
-        params["starRating"] = starreq.get()
+        global number
+        numberisgood = 0
+        number = entryfield1.get()
 
-        # pull departments, user must have at least one selected
-        if checkauto.get() == 1:
-            params["departments"].append(automotivemotorcycle)
-        if checkbooks.get() == 1:
-            params["departments"].append(books)
-        if checkcell.get() == 1:
-            params["departments"].append(cellphonescccessories)
-        if checkcomputer.get() == 1:
-            params["departments"].append(computersaccessories)
-        if checkelectronics.get() == 1:
-            params["departments"].append(electronics)
-        if checkheadphones.get() == 1:
-            params["departments"].append(headphones)
-        if checkhomeimprovement.get() == 1:
-            params["departments"].append(homeimprovement)
-        if checkkitchen.get() == 1:
-            params["departments"].append(kitchen)
-        if checkmenwatch.get() == 1:
-            params["departments"].append(menwatches)
-        if checkwomanwatch.get() == 1:
-            params["departments"].append(womenwatches)
-        # convert dictionary to json
-        params_json = json.dumps(params, indent=4)
-        # Write json to params.json
-        with open("params.json", "w") as outfile:
-            outfile.write(params_json)
-        window.destroy()
+        def getNumber():
+            nonlocal numberisgood
+            try:
+                int(number)
+                numberisgood = 1
+            except ValueError:
+                messagebox.showerror("Invalid WhatsappID", "Whatsapp ID can only be Integers! (no dashes!)")
+
+        getNumber()
+        print(number)
+
+
+        if (numberisgood == 1):
+
+            params["prime"] = primeship.get()
+            params["starRating"] = starreq.get()
+
+            # pull departments, user must have at least one selected
+            if checkauto.get() == 1:
+                params["departments"].append(automotivemotorcycle)
+            if checkbooks.get() == 1:
+                params["departments"].append(books)
+            if checkcell.get() == 1:
+                params["departments"].append(cellphonescccessories)
+            if checkcomputer.get() == 1:
+                params["departments"].append(computersaccessories)
+            if checkelectronics.get() == 1:
+                params["departments"].append(electronics)
+            if checkheadphones.get() == 1:
+                params["departments"].append(headphones)
+            if checkhomeimprovement.get() == 1:
+                params["departments"].append(homeimprovement)
+            if checkkitchen.get() == 1:
+                params["departments"].append(kitchen)
+            if checkmenwatch.get() == 1:
+                params["departments"].append(menwatches)
+            if checkwomanwatch.get() == 1:
+                params["departments"].append(womenwatches)
+            # convert dictionary to json
+            params_json = json.dumps(params, indent=4)
+            # Write json to params.json
+            with open("params.json", "w") as outfile:
+                outfile.write(params_json)
+            with open("number.txt", "w") as number_file:
+                number_file.write(number)
+            window.destroy()
 
 
     #setup labels/buttons
@@ -93,6 +116,11 @@ def gui():
             "---------------------"
             "\n"
             )
+    # enter whatsappID
+    label2 = Label(window, text="Enter Whatsapp ID (no dashes, including country code (ex 19281231234)", relief=RAISED, bg="grey", fg="white")
+    label2.pack()
+    entryfield1 = Entry(window, width=60)
+    entryfield1.pack()
     # prime? (radio group)
     label4 = Label(window, text="Prime?", relief=RAISED, bg="grey", fg="white")
     label4.pack()
@@ -122,7 +150,7 @@ def gui():
     c7 = Checkbutton(window, text="Home Improvement", variable=checkhomeimprovement)
     c8 = Checkbutton(window, text="Kitchen", variable=checkkitchen)
     c9 = Checkbutton(window, text="Men's Watches", variable=checkmenwatch)
-    c10 = Checkbutton(window, text="Woman's Watches", variable=checkwomanwatch)
+    c10 = Checkbutton(window, text="Women's Watches", variable=checkwomanwatch)
     c1.pack()
     c2.pack()
     c3.pack()
