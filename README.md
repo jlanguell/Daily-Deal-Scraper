@@ -8,6 +8,8 @@ Python-based web-scraper for auto-reporting Amazon daily deals
 
 This is made easy, and can be done by pulling up a QR code scanner on your phone's WhatsApp account, and scanning the available QR code in your browser. This registers the PC as a device associated with your WhatsApp account for future use with dealScraper.  
 
+If you have git installed on your computer: 
+
 - Clone the git repository to a local directory on your computer with the command line:    
 
 ```bash
@@ -33,3 +35,9 @@ python dealScraper.py
 ```bash
 python3 dealScraper.py
 ```  
+
+## Usage  
+
+When the application runs, it should open a simple GUI for you to enter the WhatsApp number you wish to text (11-16 integers with country code & area code, e.g. 17037737373). Then, you can select to filter deals by prime/no prime, an item star rating minimum, and by department. 
+
+When you hit "Save Changes", a json file is created locally that stores your preferences and phone number for use. Additionally, after the programs runs, a WhatsApp log is then created locally or appended to (if one already exists), that tracks information about every message that has been sent using the app.  
