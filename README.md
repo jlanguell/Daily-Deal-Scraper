@@ -1,4 +1,4 @@
-# dealScraper  
+# Daily-Deal-Scraper  
 
 Python-based web-scraper for auto-reporting Amazon daily deals
 
@@ -38,6 +38,9 @@ python3 dealScraper.py
 
 ## Usage  
 
-When the application runs, it should open a simple GUI for you to enter the WhatsApp number you wish to text (11-16 integers with country code & area code, e.g. 17037737373). Then, you can select to filter deals by prime/no prime, an item star rating minimum, and by department. 
+When the application runs the first time, it should open a simple GUI for you to enter the WhatsApp number you wish to text (11-16 integers with country code & area code, e.g. 17037737373). Then, you can select to filter deals by prime/no prime, an item star rating minimum, and by department. 
 
-When you hit "Save Changes", a json file is created locally that stores your preferences and phone number for use. Additionally, after the programs runs, a WhatsApp log is then created locally or appended to (if one already exists), that tracks information about every message that has been sent using the app.  
+When you hit "Save Changes", a json file is created locally that stores your preferences and a text file that stores your phone number. Additionally, after the programs runs, a WhatsApp log is then created locally or appended to (if one already exists), that tracks information about every message that has been sent using the app.  
+
+*NOTE:* After saving your preferences, the application will run without the preference GUI. If you wish to re-set your preferences, you should delete params.json and number.txt from the local directory. Deleting these two files is *safe*.  
+
