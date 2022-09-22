@@ -13,7 +13,7 @@ If you have git installed on your computer:
 - Clone the git repository to a local directory on your computer with the command line:    
 
 ```bash
-git clone https://github.com/jlanguell/dealScraper.git
+git clone https://github.com/jlanguell/Daily-Deal-Scraper.git
 ```  
 
 - Use command line to navigate to the folder that contains 'requirements.txt'  
