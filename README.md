@@ -4,7 +4,7 @@ Python-based web-scraper for auto-reporting Amazon daily deals
 
 ## Installation & Run  
 
-- Prior to running the application on your PC, you need to go to your browser and login to your WhatsApp account via https://web.whatsapp.com/.  
+- Prior to running the application on your PC, you need to go to your *default* browser and login to your WhatsApp account via https://web.whatsapp.com/. This will authenticate this browser on that device to your WhatsApp for future use.  
 
 This is made easy, and can be done by pulling up a QR code scanner on your phone's WhatsApp account, and scanning the available QR code in your browser. This registers the PC as a device associated with your WhatsApp account for future use with dealScraper.  
 
