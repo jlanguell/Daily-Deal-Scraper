@@ -1,0 +1,2 @@
+import os
+os.system('pip install beautifulsoup4==4.11.1 pywhatkit==5.4 selenium==4.4.3')
