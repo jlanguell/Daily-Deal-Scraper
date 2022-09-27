@@ -105,7 +105,7 @@ def gui():
                     else:
                         dept_bool = 1
                 except ValueError:
-                    messagebox.showerror("Invalid Dept number", "must have less than 5 departments")
+                    messagebox.showerror("Invalid Dept number", "Must select less than 5 departments")
 
 
         get_departments()
