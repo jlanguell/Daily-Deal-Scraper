@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2022-09-27
+### Removed
+- Unnecessary print statements.
+
+### Added
+- Option argument for Chromedriver that stops driver output to terminal
+
+### Changed
+- In GUI.py, function name getdepartments() to get_departments()
+
 ## [0.1.1] - 2022-09-22
 ### Changed
 - Repository name from dealScraper to DailyDealScraper
