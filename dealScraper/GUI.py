@@ -73,7 +73,9 @@ def gui():
         params["prime"] = prime_ship.get()
         params["starRating"] = star_req.get()
 
+
         def get_departments():
+
             nonlocal dept_bool
             if number_bool == 1:
                 # Pull departments, user must have at least one selected
@@ -104,6 +106,7 @@ def gui():
                         dept_bool = 1
                 except ValueError:
                     messagebox.showerror("Invalid Dept number", "must have less than 5 departments")
+
 
         get_departments()
 
