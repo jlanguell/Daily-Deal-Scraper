@@ -26,6 +26,7 @@ def get_products(absolute_url):
     options.add_argument('--ignore-certificate-errors')
     options.add_argument('--incognito')
     options.add_argument('--headless')
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
     driver = wd.Chrome(service=Service(chrome_driver_path), options=options)
 
     # Load Dynamic Site, Pass Data to bs4

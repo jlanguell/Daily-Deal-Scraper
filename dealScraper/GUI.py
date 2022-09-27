@@ -29,7 +29,6 @@ def gui():
 
     # Nested get data / save data (called by lambda when "save button" is pressed)
     def getdata():
-
         # Set data for params (temp)
         params = {
             "version": 1,
@@ -55,45 +54,60 @@ def gui():
 
         global number
         number_bool = 0
+        dept_bool = 0
         number = entry_field_1.get()
 
         def get_number():
             nonlocal number_bool
             try:
+                if (len(number) < 11) or (len(number) > 16):
+                    raise ValueError
                 int(number)
                 number_bool = 1
             except ValueError:
-                messagebox.showerror("Invalid WhatsappID", "Whatsapp ID can only be Integers! (no dashes!)")
+                messagebox.showerror("Invalid WhatsappID",
+                                     "Whatsapp ID can only be Integers! 11-16 digits (no dashes!)")
 
         get_number()
 
-        if number_bool == 1:
+        params["prime"] = prime_ship.get()
+        params["starRating"] = star_req.get()
 
-            params["prime"] = prime_ship.get()
-            params["starRating"] = star_req.get()
+        def get_departments():
+            nonlocal dept_bool
+            if number_bool == 1:
+                # Pull departments, user must have at least one selected
+                if check_auto.get() == 1:
+                    params["departments"].append(automotive_motorcycle)
+                if check_books.get() == 1:
+                    params["departments"].append(books)
+                if check_cell.get() == 1:
+                    params["departments"].append(cellphone_accessories)
+                if check_computer.get() == 1:
+                    params["departments"].append(computer_accessories)
+                if check_electronics.get() == 1:
+                    params["departments"].append(electronics)
+                if check_headphones.get() == 1:
+                    params["departments"].append(headphones)
+                if check_home_improvement.get() == 1:
+                    params["departments"].append(home_improvement)
+                if check_kitchen.get() == 1:
+                    params["departments"].append(kitchen)
+                if check_men_watch.get() == 1:
+                    params["departments"].append(men_watches)
+                if check_woman_watch.get() == 1:
+                    params["departments"].append(women_watches)
+                try:
+                    if len(params["departments"]) > 5:
+                        raise ValueError
+                    else:
+                        dept_bool = 1
+                except ValueError:
+                    messagebox.showerror("Invalid Dept number", "must have less than 5 departments")
 
-            # Pull departments, user must have at least one selected
-            if check_auto.get() == 1:
-                params["departments"].append(automotive_motorcycle)
-            if check_books.get() == 1:
-                params["departments"].append(books)
-            if check_cell.get() == 1:
-                params["departments"].append(cellphone_accessories)
-            if check_computer.get() == 1:
-                params["departments"].append(computer_accessories)
-            if check_electronics.get() == 1:
-                params["departments"].append(electronics)
-            if check_headphones.get() == 1:
-                params["departments"].append(headphones)
-            if check_home_improvement.get() == 1:
-                params["departments"].append(home_improvement)
-            if check_kitchen.get() == 1:
-                params["departments"].append(kitchen)
-            if check_men_watch.get() == 1:
-                params["departments"].append(men_watches)
-            if check_woman_watch.get() == 1:
-                params["departments"].append(women_watches)
+        get_departments()
 
+        if (number_bool == 1) and (dept_bool == 1):
             # Convert dictionary to json
             params_json = json.dumps(params, indent=4)
 
@@ -108,7 +122,8 @@ def gui():
     var = StringVar()
     label = Label(window, textvariable=var, relief=RAISED, bg="grey", fg="white")
     label.pack()
-    var.set("This is the Amazon scraper tool, DealScraper!  This GUI will only appear until the first time you save preference settings.\n"
+    var.set("This is the Amazon scraper tool, DealScraper!"
+            "This GUI will only appear until the first time you save preference settings.\n"
             "\n"
             "Save your settings using the radio buttons and check boxes\n"
             "\n"
@@ -118,10 +133,16 @@ def gui():
             "\n"
             "---------------------"
             "\n"
+            "This app will send a message with the best 5 deals,"
+            "including their price and a link to the item on Amazon Daily Deals"
+            "\n"
+            "---------------------"
+            "\n"
             )
 
     # Enter WhatsAppID
-    label2 = Label(window, text="Enter Whatsapp ID (no dashes; include country code (ex 19281231234)", relief=RAISED, bg="grey", fg="white")
+    label2 = Label(window, text="Enter Whatsapp ID (no dashes; include country code (ex 19281231234)",
+                   relief=RAISED, bg="grey", fg="white")
     label2.pack()
     entry_field_1 = Entry(window, width=60)
     entry_field_1.pack()
@@ -146,7 +167,7 @@ def gui():
     Radiobutton(window, text="4+ Stars", variable=star_req, value=4).pack()
 
     # Departments (check boxes)
-    label6 = Label(window, text="Choose Any Number of Departments", relief=RAISED, bg="grey", fg="white")
+    label6 = Label(window, text="Choose 5 or less Departments", relief=RAISED, bg="grey", fg="white")
     label6.pack()
     c1 = Checkbutton(window, text="Automotive", variable=check_auto)
     c2 = Checkbutton(window, text="Books", variable=check_books)
