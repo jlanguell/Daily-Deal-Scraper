@@ -2,6 +2,7 @@
 import json
 from tkinter import *
 from tkinter import messagebox
+import webbrowser
 
 # Global Variables
 number = 0
@@ -11,7 +12,7 @@ def gui():
 
     # GUI portion
     window = Tk()
-    window.title("Scraper GUI")
+    window.title("Amazon Deal-scraper")
 
     # Setup GUI variables
     prime_ship = BooleanVar()
@@ -26,6 +27,19 @@ def gui():
     check_kitchen = IntVar()
     check_men_watch = IntVar()
     check_woman_watch = IntVar()
+    check_beauty = IntVar()
+    check_camera = IntVar()
+    check_videogames = IntVar()
+    check_toysgames = IntVar()
+    check_moviestv = IntVar()
+    check_pets = IntVar()
+    check_women_jewelry = IntVar()
+    check_men_shoes = IntVar()
+    check_women_shoes = IntVar()
+    check_men_clothing = IntVar()
+    check_women_clothing = IntVar()
+    check_men_fashion = IntVar()
+    check_women_fashion = IntVar()
 
     # Nested get data / save data (called by lambda when "save button" is pressed)
     def getdata():
@@ -51,6 +65,29 @@ def gui():
         kitchen = "284507"
         men_watches = "6358539011"
         women_watches = "6358543011"
+        beauty = "3760911"
+        camera = "502394"
+        videogames = "468642"
+        toysgames = "165793011"
+        moviestv = "2625373011"
+        pets = "2619533011"
+        women_jewelry = "7192394011"
+        men_shoes = "679255011"
+        women_shoes = "679337011"
+        men_clothing = "1040658"
+        women_clothing = "1040660"
+        men_fashion = "7147441011"
+        women_fashion = "7147440011"
+
+
+
+
+
+
+
+
+
+
 
         global number
         number_bool = 0
@@ -99,6 +136,32 @@ def gui():
                     params["departments"].append(men_watches)
                 if check_woman_watch.get() == 1:
                     params["departments"].append(women_watches)
+                if check_beauty.get() == 1:
+                    params["departments"].append(beauty)
+                if check_camera.get() == 1:
+                    params["departments"].append(camera)
+                if check_videogames.get() == 1:
+                    params["departments"].append(videogames)
+                if check_toysgames.get() == 1:
+                    params["departments"].append(toysgames)
+                if check_moviestv.get() == 1:
+                    params["departments"].append(moviestv)
+                if check_pets.get() == 1:
+                    params["departments"].append(pets)
+                if check_women_jewelry.get() == 1:
+                    params["departments"].append(women_jewelry)
+                if check_men_shoes.get() == 1:
+                    params["departments"].append(men_shoes)
+                if check_women_shoes.get() == 1:
+                    params["departments"].append(women_shoes)
+                if check_men_clothing.get() == 1:
+                    params["departments"].append(men_clothing)
+                if check_women_clothing.get() == 1:
+                    params["departments"].append(women_clothing)
+                if check_men_fashion.get() == 1:
+                    params["departments"].append(men_fashion)
+                if check_women_fashion.get() == 1:
+                    params["departments"].append(women_fashion)
                 try:
                     if len(params["departments"]) > 5:
                         raise ValueError
@@ -123,35 +186,48 @@ def gui():
 
     # Create labels/buttons
     var = StringVar()
-    label = Label(window, textvariable=var, relief=RAISED, bg="grey", fg="white")
-    label.pack()
-    var.set("This is the Amazon scraper tool, DealScraper!"
-            "This GUI will only appear until the first time you save preference settings.\n"
-            "\n"
-            "Save your settings using the radio buttons and check boxes\n"
-            "\n"
-            "Hit 'Save Settings!' to save your deal preferences locally\n"
-            "\n"
-            "To reset your settings, simply delete the params.json and/or number.txt inside of the local directory"
-            "\n"
-            "---------------------"
+    label = Label(window, textvariable=var, relief=RAISED, bg="grey", fg="white", font=("Arial", 10))
+    label.pack(expand=True, fill="both")
+    var.set("This is the Amazon scraper tool, DealScraper!\n"
             "\n"
             "This app will send a message with the best 5 deals,"
             "including their price and a link to the item on Amazon Daily Deals"
             "\n"
-            "---------------------"
             "\n"
+            "\n"
+            "\n"
+            "Remember to log-in to whatsapp through your default browser before using:\n")
+
+    labelb = Label(window, text="https://web.whatsapp.com/", relief=RAISED, bg="grey", fg="lightblue", font=("Arial", 10),
+                   cursor="hand2")
+    labelb.pack(expand=True, fill="both")
+    labelb.bind("<Button-1>", lambda e: webbrowser.open_new_tab('https://web.whatsapp.com/') )
+
+
+    var2 = StringVar()
+    labelc = Label(window, textvariable=var2, relief=RAISED, bg="grey", fg="white", font=("Arial", 10))
+    labelc.pack(expand=True, fill="both")
+    var2.set(
+            "\n"
+             "\n"
+            "This GUI will only appear until the first time you save preference settings.\n"
+            "\n"
+            "To reset your settings, delete the [params.json] and [number.txt] inside of the app local file directory"
+            "\n"
+            "\n"
+
             )
 
     # Enter WhatsAppID
-    label2 = Label(window, text="Enter Whatsapp ID (no dashes; include country code (ex 19281231234)",
+    label2 = Label(window, text="Enter Whatsapp ID     (no dashes)    (include country code)   \
+      (example-   19281231234)",
                    relief=RAISED, bg="grey", fg="white")
     label2.pack()
     entry_field_1 = Entry(window, width=60)
     entry_field_1.pack()
 
     # Prime? (radio group)
-    label4 = Label(window, text="Prime Membership", relief=RAISED, bg="grey", fg="white")
+    label4 = Label(window, text="Prime Shipping?", relief=RAISED, bg="grey", fg="white")
     label4.pack()
     prime_ship.set(True)
     r1 = Radiobutton(window, text="No Prime shipping", variable=prime_ship, value=False)
@@ -172,28 +248,73 @@ def gui():
     # Departments (check boxes)
     label6 = Label(window, text="Choose 5 or less Departments", relief=RAISED, bg="grey", fg="white")
     label6.pack()
-    c1 = Checkbutton(window, text="Automotive", variable=check_auto)
-    c2 = Checkbutton(window, text="Books", variable=check_books)
-    c3 = Checkbutton(window, text="Cell Phones", variable=check_cell)
-    c4 = Checkbutton(window, text="Computers", variable=check_computer)
-    c5 = Checkbutton(window, text="Electronics", variable=check_electronics)
-    c6 = Checkbutton(window, text="Headphones", variable=check_headphones)
-    c7 = Checkbutton(window, text="Home Improvement", variable=check_home_improvement)
-    c8 = Checkbutton(window, text="Kitchen", variable=check_kitchen)
-    c9 = Checkbutton(window, text="Men's Watches", variable=check_men_watch)
-    c10 = Checkbutton(window, text="Women's Watches", variable=check_woman_watch)
-    c1.pack()
-    c2.pack()
-    c3.pack()
-    c4.pack()
-    c5.pack()
-    c6.pack()
-    c7.pack()
-    c8.pack()
-    c9.pack()
-    c10.pack()
+
+    frame1 = Frame(window)
+    frame1.pack()
+
+    frame2 = Frame(window)
+    frame2.pack()
+
+    frame3 = Frame(window)
+    frame3.pack()
+
+    frame4 = Frame(window)
+    frame4.pack()
+
+    frame5 = Frame(window)
+    frame5.pack()
+
+    c1 = Checkbutton(frame1, text="Automotive", variable=check_auto)
+    c2 = Checkbutton(frame1, text="Books", variable=check_books)
+    c3 = Checkbutton(frame1, text="Cell Phones", variable=check_cell)
+    c4 = Checkbutton(frame1, text="Computers", variable=check_computer)
+    c5 = Checkbutton(frame1, text="Electronics", variable=check_electronics)
+    c6 = Checkbutton(frame2, text="Headphones", variable=check_headphones)
+    c7 = Checkbutton(frame2, text="Home Improvement", variable=check_home_improvement)
+    c8 = Checkbutton(frame2, text="Kitchen", variable=check_kitchen)
+    c9 = Checkbutton(frame2, text="Men's Watches", variable=check_men_watch)
+    c10 = Checkbutton(frame2, text="Women's Watches", variable=check_woman_watch)
+    c11 = Checkbutton(frame3, text="Beauty", variable=check_beauty)
+    c12 = Checkbutton(frame3, text="Camera", variable=check_camera)
+    c13 = Checkbutton(frame3, text="Video Games", variable=check_videogames)
+    c14 = Checkbutton(frame3, text="Toys & Games", variable=check_toysgames)
+    c15 = Checkbutton(frame3, text="Movies / TV", variable=check_moviestv)
+    c16 = Checkbutton(frame4, text="Pet Supplies", variable=check_pets)
+    c17 = Checkbutton(frame4, text="Women's Watches", variable=check_women_jewelry)
+    c18 = Checkbutton(frame4, text="Women's Watches", variable=check_men_shoes)
+    c19 = Checkbutton(frame4, text="Women's Watches", variable=check_women_shoes)
+    c20 = Checkbutton(frame4, text="Men's Clothing", variable=check_men_clothing)
+    c21 = Checkbutton(frame5, text="Women's Clothing", variable=check_women_clothing)
+    c22 = Checkbutton(frame5, text="Men's Fashion", variable=check_men_fashion)
+    c23 = Checkbutton(frame5, text="Women's Fashion", variable=check_women_fashion)
+    c1.pack(side=LEFT)
+    c2.pack(side=LEFT)
+    c3.pack(side=LEFT)
+    c4.pack(side=LEFT)
+    c5.pack(side=LEFT)
+    c6.pack(side=LEFT)
+    c7.pack(side=LEFT)
+    c8.pack(side=LEFT)
+    c9.pack(side=LEFT)
+    c10.pack(side=LEFT)
+    c11.pack(side=LEFT)
+    c12.pack(side=LEFT)
+    c13.pack(side=LEFT)
+    c14.pack(side=LEFT)
+    c15.pack(side=LEFT)
+    c16.pack(side=LEFT)
+    c17.pack(side=LEFT)
+    c18.pack(side=LEFT)
+    c19.pack(side=LEFT)
+    c20.pack(side=LEFT)
+    c21.pack(side=LEFT)
+    c22.pack(side=LEFT)
+    c23.pack(side=LEFT)
+
 
     # Save button
     save_button = Button(window, text="Save Settings!", bg="grey", fg="white", command=lambda: getdata())
     save_button.pack()
     window.mainloop()
+
+gui()
